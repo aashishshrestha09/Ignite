@@ -7,6 +7,13 @@ import {useSelector} from 'react-redux';
 import {useHistory} from 'react-router-dom';
 
 import {smallImage} from '../util'
+// Images
+import playstation from '../img/playstation.svg';
+import steam from '../img/steam.svg';
+import xbox from '../img/xbox.svg';
+import nintendo from '../img/nintendo.svg';
+import apple from '../img/apple.svg';
+import gamepad from '../img/gamepad.svg';
 
 export default function GameDetail({pathId}) {
     const history = useHistory();
@@ -15,6 +22,30 @@ export default function GameDetail({pathId}) {
         const element = e.target;
         if(element.classList.contains('shadow')) {
             history.push('/');
+        }
+    };
+
+    // Get platfrom images
+    const getPlatfrom = (platform) => {
+        switch(platform) {
+            case "PlayStation 4":
+                return playstation;
+            case "PlayStation 5":
+                return playstation;
+            case "Xbox Series S/X":
+                return xbox;
+            case "Xbox S":
+                return xbox;
+            case "Xbox one":
+                return xbox;
+            case "PC":
+                return steam;
+            case "Nintendo Switch":
+                return nintendo
+            case "iOS":
+                return apple
+            default:
+                return gamepad;
         }
     }
 
@@ -34,7 +65,11 @@ export default function GameDetail({pathId}) {
                             <h3>Platforms</h3>
                             <Platforms>
                                 {game.platforms.map((data) => (
-                                    <h3 key={data.platform.id}>{data.platform.name}</h3>
+                                    <img 
+                                        key={data.platform.id} 
+                                        src={getPlatfrom(data.platform.name)} 
+                                        alt={data.platform.name}
+                                    />
                                 ))}
                             </Platforms>
                         </Info>
@@ -65,6 +100,7 @@ const CardShadow = styled(motion.div)`
     position: fixed;
     top: 0;
     left: 0;
+    z-index: 10;
     &::-webkit-scrollbar {
         width: 0.5rem;
     }
@@ -86,6 +122,7 @@ const Detail = styled(motion.div)`
     position: absolute;
     left: 10%;
     color: black;
+    z-index: 10;
     img {
         width: 100%;
     }
