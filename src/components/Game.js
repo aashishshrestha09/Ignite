@@ -8,6 +8,8 @@ import {loadDetail} from '../actions/detailAction'
 import {Link} from 'react-router-dom'
 import {useLocation} from 'react-router-dom'
 import {smallImage} from '../util'
+// Animations
+import {popUp} from '../animations'
 
 export default function Game( props ) {
     const {
@@ -30,7 +32,7 @@ export default function Game( props ) {
     }
 
     return (
-        <StyledGame layoutId={stringPathId} onClick={loadDetailHandler}>
+        <StyledGame variants={popUp} initial="hidden" animate="show" layoutId={stringPathId} onClick={loadDetailHandler}>
             <Link to={`/game/${id}`}>
                 <motion.h3 layoutId={`title ${stringPathId}`} >{name}</motion.h3>
                 <p>{released}</p>
