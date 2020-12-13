@@ -6,6 +6,8 @@ import {motion} from 'framer-motion';
 import {useDispatch} from 'react-redux';
 import {loadDetail} from '../actions/detailAction'
 import {Link} from 'react-router-dom'
+import {useLocation} from 'react-router-dom'
+import {smallImage} from '../util'
 
 export default function Game( props ) {
     const {
@@ -13,11 +15,16 @@ export default function Game( props ) {
         released,
         image,
         id
-    } = props
-    
+    } = props    
+    const location = useLocation();
+    if (location.pathname === '/') {
+        document.body.style.overflow = "auto";
+    } else {
+        document.body.style.overflow = "hidden";
+    }
     // Load Details
     const dispatch = useDispatch();
-    const loadDetailHandler = () => {
+    const loadDetailHandler = () => {   
         dispatch(loadDetail(id));
     }
 
@@ -26,7 +33,7 @@ export default function Game( props ) {
             <Link to={`/game/${id}`}>
                 <h3>{name}</h3>
                 <p>{released}</p>
-                <img src={image} alt={name}/>   
+                <img src={smallImage(image, 640)} alt={name}/>   
             </Link>     
         </StyledGame>
     );
@@ -38,6 +45,7 @@ const StyledGame = styled(motion.div) `
     text-align: center;
     border-radius: 1rem;
     cursor: pointer;
+    overflow: hidden;
     img {
         width: 100%;
         height: 40vh;
